@@ -1,4 +1,4 @@
-name: Build and Deploy Docker Image
+name: Build and Deploy QEMU x86_64 Docker Image
 
 on:
   push:
@@ -6,25 +6,30 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Build Docker image
-      run: docker build --rm --tag rkbvn89/qemu_x86_64_yocto:${{ github.sha }} -f Dockerfile .
 
-  deploy:
-    runs-on: ubuntu-latest
-    
-    needs: build
-    
     steps:
-    - name: Login to Docker Hub
-      run: | 
-        echo ${{ secrets.DOCKER_PAT}} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-    
-    - name: Push Docker image to Docker Hub
-      run: docker push rkbvn89/qemu_x86_64_yocto:${{ github.sha }}
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU (if needed)
+        run: |
+          # Set up QEMU if necessary
+          # Example: (Replace with your QEMU setup steps)
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+
+      - name: Set Tag
+        id: set_tag
+        run: echo "::set-output name=IMAGE_TAG::$(echo $GITHUB_SHA | cut -c1-12)"
+
+      - name: Build Docker Image
+        run: |
+          # Build the Docker image with a generic tag
+          docker build -t rkbvn89/qemu_x86_64_yocto:${{ steps.set_tag.outputs.IMAGE_TAG }} .
+
+      - name: Push Docker Image
+        run: |
+          # Push the Docker image to a container registry (e.g., Docker Hub)
+          echo ${{ secrets.DOCKER_PAT }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          docker push rkbvn89/qemu_x86_64_yocto:${{ steps.set_tag.outputs.IMAGE_TAG }}
