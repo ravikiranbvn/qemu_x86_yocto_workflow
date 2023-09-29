@@ -1,0 +1,9 @@
+1. docker installation (apt version)
+- https://docs.docker.com/engine/install/ubuntu/
+check if group exists
+- sudo getent group docker 
+add username to docker group
+sudo usermod -aG docker username
+
+2. qemu-system-x86 
+- sudo apt install qemu-system-x86
