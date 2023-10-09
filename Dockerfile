@@ -85,9 +85,7 @@ RUN apt-get update && apt-get install -y \
   zstd \
   fdisk \
   tig
-
-RUN pip install kas
-
+  
 # Set the locale to en_US.UTF-8, because the Yocto build fails without any locale set.
 RUN locale-gen en_US.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 ENV LANG en_US.UTF-8
