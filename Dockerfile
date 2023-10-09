@@ -3,9 +3,6 @@ FROM ubuntu:lunar AS base
 #set workdir
 WORKDIR /root
 
-# variables
-ENV WORKSPACE=/home/$USER/workspace
-
 # install tools for yocto
 RUN apt-get update && apt-get install -y \
   apt-utils \
@@ -98,16 +95,13 @@ RUN useradd -m -d /home/builduser -s /bin/bash builduser &&\
     echo "builduser:builduser" | chpasswd
 RUN usermod -aG sudo builduser
 USER builduser
+WORKDIR /home/$USER
 
 # copy qemu bin
-RUN  mkdir -p /home/$USER/workspace/
-COPY image/* /home/$USER/workspace/
-RUN  chmod +r /home/$USER/workspace/core-image-minimal-qemux86-64.ext4
+RUN  mkdir -p workspace
+COPY --chown=builduser:builduser images/core-image-minimal-qemux86-64.ext4 workspace/core-image-minimal-qemux86-64.ext4
 
 FROM base AS final
-
-# set workdir
-WORKDIR $WORKSPACE
 
 # Set the entry point to runqemu qemux86-64 nographic
 ENTRYPOINT ["qemu-system-x86_64", "-nographic", "-boot", "c", "-hda", "core-image-minimal-qemux86-64.ext4"]
