@@ -65,7 +65,6 @@ RUN apt-get update && apt-get install -y \
   pax \
   gzip \
   curl \
-  zlib1g-dev:i386 \
   libtinfo5 \
   libconfuse-dev \
   genext2fs \
