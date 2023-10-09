@@ -7,7 +7,8 @@ ENV PASSWORD=docker
 ENV WORKSPACE=/home/$USER/workspace
 
 # install general tools
-RUN apt-get update && apt-get install \
+RUN apt-get update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install \
     --no-install-recommends -y \
     apt-utils sudo curl git-core gnupg locales \
     nodejs zsh wget nano npm fonts-powerline tmux vim \
@@ -15,7 +16,7 @@ RUN apt-get update && apt-get install \
     g++ \
     build-essential \
     ca-certificates \
-    qemu-system-x86_64 \
+    qemu-system \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
     
