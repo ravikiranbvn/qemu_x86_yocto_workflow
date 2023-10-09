@@ -1,4 +1,4 @@
-FROM ubuntu:lunar:23.04
+FROM ubuntu-latest AS base
 
 # variables
 ENV USER=builduser
@@ -42,6 +42,8 @@ USER $USER
 
 # copy qemu bin
 COPY image/* /home/$USER/workspace/
+
+FROM base AS final
 
 # set workdir
 WORKDIR $WORKSPACE
