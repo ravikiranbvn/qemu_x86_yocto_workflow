@@ -23,9 +23,11 @@ RUN apt-get update && apt-get install -y \
   sudo \
   nano \
   vim \
+  qemu \
   qemu-system \
   qemu-system-x86 \
-  qemu-user 
+  qemu-user \
+  qemu-user-static
 
 RUN apt-get update && apt-get install -y \
   python3 \
@@ -108,4 +110,5 @@ FROM base AS final
 WORKDIR $WORKSPACE
 
 # Set the entry point to runqemu qemux86-64 nographic
-ENTRYPOINT ["runqemu", "qemux86-64", "nographic"]
+ENTRYPOINT ["qemu-system-x86_64", "-nographic", "-boot", "c", "-hda", "core-image-minimal-qemux86-64.ext4"]
+
