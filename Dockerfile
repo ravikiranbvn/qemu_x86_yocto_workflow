@@ -99,7 +99,7 @@ USER builduser
 
 # copy qemu bin
 RUN  mkdir -p workspace
-COPY images/core-image-minimal-qemux86-64.ext4 /home/builduser/workspace/core-image-minimal-qemux86-64.ext4
+COPY image/core-image-minimal-qemux86-64.ext4 /home/builduser/workspace/core-image-minimal-qemux86-64.ext4
 RUN chmod +r workspace/core-image-minimal-qemux86-64.ext4
 
 FROM base AS final
