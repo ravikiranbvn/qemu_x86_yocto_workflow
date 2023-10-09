@@ -1,4 +1,4 @@
-FROM ubuntu-latest AS base
+FROM ubuntu:latest AS base
 
 # variables
 ENV USER=builduser
