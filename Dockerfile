@@ -139,8 +139,11 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
 # add a user
-RUN useradd -m -d /home/builduser -s /bin/bash builduser &&\
+# Create a new user named "builduser" with home directory and bash shell
+RUN useradd -m -d /home/builduser -s /bin/bash builduser && \
     echo "builduser:builduser" | chpasswd
+
+# Add the "builduser" to the "sudo" group
 RUN usermod -aG sudo builduser
 USER builduser
 
