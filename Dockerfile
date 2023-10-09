@@ -1,9 +1,9 @@
 FROM ubuntu:lunar AS base
 
+#set workdir
+WORKDIR /root
+
 # variables
-ENV USER=builduser
-ENV USER_ID=1000
-ENV PASSWORD=docker
 ENV WORKSPACE=/home/$USER/workspace
 
 # install tools for yocto
@@ -85,16 +85,17 @@ RUN apt-get update && apt-get install -y \
   zstd \
   fdisk \
   tig
-  
+
 # Set the locale to en_US.UTF-8, because the Yocto build fails without any locale set.
 RUN locale-gen en_US.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
 # add a user
-RUN useradd -u $USER_ID -ms /bin/zsh $USER && \
-    echo "$USER:$PASSWORD" | chpasswd && adduser $USER sudo
-USER $USER
+RUN useradd -m -d /home/builduser -s /bin/bash builduser &&\
+    echo "builduser:builduser" | chpasswd
+RUN usermod -aG sudo builduser
+USER builduser
 
 # copy qemu bin
 COPY image/* /home/$USER/workspace/
