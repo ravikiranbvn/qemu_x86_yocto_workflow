@@ -7,8 +7,7 @@ ENV PASSWORD=docker
 ENV WORKSPACE=/home/$USER/workspace
 
 # install general tools
-RUN apt-get update && \
-    DEBIAN_FRONTEND="noninteractive" apt-get install \
+RUN apt-get update && apt-get install \
     --no-install-recommends -y \
     apt-utils sudo curl git-core gnupg locales \
     nodejs zsh wget nano npm fonts-powerline tmux vim \
