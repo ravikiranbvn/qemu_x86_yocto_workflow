@@ -100,9 +100,9 @@ RUN usermod -aG sudo builduser
 USER builduser
 
 # copy qemu bin
-mkdir -p /home/$USER/workspace/
+RUN  mkdir -p /home/$USER/workspace/
 COPY image/* /home/$USER/workspace/
-RUN chmod +r /home/$USER/workspace/core-image-minimal-qemux86-64.ext4
+RUN  chmod +r /home/$USER/workspace/core-image-minimal-qemux86-64.ext4
 
 FROM base AS final
 
