@@ -95,14 +95,16 @@ RUN useradd -m -d /home/builduser -s /bin/bash builduser &&\
     echo "builduser:builduser" | chpasswd
 RUN usermod -aG sudo builduser
 USER builduser
-WORKDIR /home/builduser
+
 
 # copy qemu bin
 RUN  mkdir -p workspace
-COPY --chown=builduser:builduser images/core-image-minimal-qemux86-64.ext4 workspace/core-image-minimal-qemux86-64.ext4
+COPY images/core-image-minimal-qemux86-64.ext4 /home/builduser/workspace/core-image-minimal-qemux86-64.ext4
+RUN chmod +r workspace/core-image-minimal-qemux86-64.ext4
 
 FROM base AS final
 
+WORKDIR /home/builduser
 # Set the entry point to runqemu qemux86-64 nographic
 ENTRYPOINT ["qemu-system-x86_64", "-nographic", "-boot", "c", "-hda", "core-image-minimal-qemux86-64.ext4"]
 
