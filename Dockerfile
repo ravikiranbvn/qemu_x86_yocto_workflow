@@ -95,7 +95,7 @@ RUN useradd -m -d /home/builduser -s /bin/bash builduser &&\
     echo "builduser:builduser" | chpasswd
 RUN usermod -aG sudo builduser
 USER builduser
-WORKDIR /home/$USER
+WORKDIR /home/builduser
 
 # copy qemu bin
 RUN  mkdir -p workspace
