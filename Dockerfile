@@ -23,7 +23,9 @@ RUN apt-get update && apt-get install -y \
   sudo \
   nano \
   vim \
-  qemu-system
+  qemu-system \
+  qemu-system-x86 \
+  qemu-user 
 
 RUN apt-get update && apt-get install -y \
   python3 \
