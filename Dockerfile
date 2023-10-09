@@ -23,8 +23,6 @@ RUN apt-get update && apt-get install -y \
   sudo \
   nano \
   vim \
-  qemu \
-  qemu-system \
   qemu-system-x86 \
   qemu-user \
   qemu-user-static
