@@ -66,4 +66,4 @@ WORKDIR $workspace
 
 # set the entry point to runqemu qemux86-64 nographic
 # ENTRYPOINT ["qemu-system-x86_64", "-kernel", "bzImage-qemux86-64.bin", "-drive", "format=raw,file=core-image-minimal-qemux86-64.ext4", "-append", "root=/dev/hda console=ttyS0", "-nographic"]
-ENTRYPOINT["/bin/zsh"]
+ENTRYPOINT ["/bin/zsh"]
