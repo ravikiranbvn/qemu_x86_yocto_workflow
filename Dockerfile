@@ -152,6 +152,7 @@ USER builduser
 
 # copy qemu bin
 COPY image/core-image-minimal-qemux86-64.ext4 /home/builduser/workspace/core-image-minimal-qemux86-64.ext4
+RUN chmod +r /home/builduser/workspace/core-image-minimal-qemux86-64.ext4
 
 FROM base AS final
 
