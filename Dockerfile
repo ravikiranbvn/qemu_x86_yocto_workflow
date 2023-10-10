@@ -50,8 +50,10 @@ RUN adduser $USERNAME sudo
 
 # copy qemu image
 COPY image/core-image-minimal-qemux86-64.ext4 /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
+COPY image/bzImage-qemux86-64.bin /home/$USERNAME/workspace/bzImage-qemux86-64.bin
 RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/workspace
 RUN chmod +r /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
+RUN chmod +r /home/$USERNAME/workspace/bzImage-qemux86-64.bin
 USER $USERNAME
 
 FROM base AS final
@@ -59,5 +61,5 @@ FROM base AS final
 WORKDIR $workspace
 
 # set the entry point to runqemu qemux86-64 nographic
-ENTRYPOINT ["qemu-system-x86_64", "-nographic", "-boot", "c", "-hda", "core-image-minimal-qemux86-64.ext4"]
+ENTRYPOINT ["qemu-system-x86_64", "-kernel", "bzImage-qemux86-64.bin", "-drive", "format=raw,file=core-image-minimal-qemux86-64.ext4", "-append", "root=/dev/hda console=ttyS0", "-nographic"]
 
