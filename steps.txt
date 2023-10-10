@@ -13,4 +13,4 @@ docker pull rkbvn89/qemu_x86_64_yocto:v1
 2. qemu-system-x86 
 - sudo apt install qemu-system-x86
 
-qemu-system-x86_64 -kernel bzImage -drive format=raw,file=core-image-minimal-qemux86-64.ext4 -append "root=/dev/hda console=ttyS0" -nographic
+qemu-system-x86_64 -kernel bzImage-qemux86-64.bin -drive format=raw,file=core-image-minimal-qemux86-64.ext4 -append "root=/dev/hda console=ttyS0" -nographic

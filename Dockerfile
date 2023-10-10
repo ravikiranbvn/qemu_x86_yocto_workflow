@@ -28,7 +28,6 @@ RUN apt-get update &&  apt-get install --no-install-recommends -y \
   g++ \
   ca-certificates \
   locales \
-  zsh \
   ssh \
   python3 \
   python3-dev \
@@ -44,7 +43,7 @@ ENV LC_ALL en_US.UTF-8
 
 # add a user
 # Create a new user named "builduser" with home directory and bash shell
-RUN useradd -m -d /home/$USERNAME -s /bin/zsh $USERNAME &&\
+RUN useradd -m -d /home/$USERNAME -s /bin/bash $USERNAME &&\
 RUN echo "${USERNAME}:${USERPASSWORD}" | chpasswd && usermod -aG sudo $USERNAME
 RUN adduser $USERNAME sudo
 
@@ -60,6 +59,5 @@ FROM base AS final
 
 WORKDIR $workspace
 
-# set the entry point to runqemu qemux86-64 nographic
-# ENTRYPOINT ["qemu-system-x86_64", "-kernel", "bzImage-qemux86-64.bin", "-drive", "format=raw,file=core-image-minimal-qemux86-64.ext4", "-append", "root=/dev/hda console=ttyS0", "-nographic"]
-ENTRYPOINT ["/bin/zsh"]
+# set the entry point to /bin/bash
+ENTRYPOINT ["/bin/bash"]
