@@ -34,10 +34,6 @@ RUN apt-get update &&  apt-get install --no-install-recommends -y \
   python3-dev \
   binutils \
   binutils-common \
-  kvm qemu-kvm \ 
-  libvirt-bin \
-  bridge-utils \
-  libguestfs-tools \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
