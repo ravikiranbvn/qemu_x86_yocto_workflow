@@ -52,8 +52,8 @@ ARG RFSIMAGEPATH="/home/$USERNAME/qemu_sim/core-image-minimal-qemux86-64.rootfs.
 ARG KIMAGEPATH="/home/$USERNAME/qemu_sim/bzImage-qemux86-64.bin"
 
 RUN mkdir -p /home/$USERNAME/qemu_sim
-COPY image/core-image-minimal-qemux86-64.rootfs.ext4 $RFSIMAGEPATH
-COPY image/bzImage-qemux86-64.bin                    $KIMAGEPATH
+COPY images/core-image-minimal-qemux86-64.rootfs.ext4 $RFSIMAGEPATH
+COPY images/bzImage-qemux86-64.bin                    $KIMAGEPATH
 
 RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/qemu_sim
 RUN chmod +r $RFSIMAGEPATH
