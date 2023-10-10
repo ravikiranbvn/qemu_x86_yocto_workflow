@@ -12,12 +12,6 @@ ENV WORKSPACE=/home/builduser/workspace
 ENV USERNAME $USERNAME
 ENV USERPASSWORD $USERPASSWORD
 
-# add a user
-# Create a new user named "builduser" with home directory and bash shell
-RUN adduser --quiet --disabled-password --shell /bin/zsh --home /home/$USERNAME --gecos "User" $USERNAME
-RUN echo "${USERNAME}:${USERPASSWORD}" | chpasswd && usermod -aG sudo $USERNAME
-RUN adduser $USERNAME sudo
-
 # install tools for yocto
 RUN apt-get update &&  apt-get install --no-install-recommends -y \
   build-essential \
@@ -48,9 +42,16 @@ RUN locale-gen en_US.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
+# add a user
+# Create a new user named "builduser" with home directory and bash shell
+RUN useradd --quiet --disabled-password --shell /bin/zsh --home /home/$USERNAME --gecos "User" $USERNAME
+RUN echo "${USERNAME}:${USERPASSWORD}" | chpasswd && usermod -aG sudo $USERNAME
+RUN adduser $USERNAME sudo
+
 # copy qemu bin
 COPY image/core-image-minimal-qemux86-64.ext4 /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
 RUN chmod +r /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
+USER $USERNAME
 
 FROM base AS final
 
