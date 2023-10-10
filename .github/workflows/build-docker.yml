@@ -13,12 +13,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Set up QEMU (if needed)
-        run: |
-          # Set up QEMU if necessary
-          # Example: (Replace with your QEMU setup steps)
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-
       - name: Set Tag
         id: set_tag
         run: echo "::set-output name=IMAGE_TAG::$(echo $GITHUB_SHA | cut -c1-12)"

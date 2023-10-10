@@ -1,4 +1,4 @@
-FROM ubuntu:lunar AS base
+FROM ubuntu:lunar
 
 # config
 ARG USERNAME="builduser"
@@ -8,7 +8,6 @@ ARG USERPASSWORD="go"
 WORKDIR /root
 
 # variables
-ENV WORKSPACE=/home/builduser/workspace
 ENV USERNAME $USERNAME
 ENV USERPASSWORD $USERPASSWORD
 
@@ -47,17 +46,18 @@ RUN useradd -m -d /home/$USERNAME -s /bin/bash $USERNAME &&\
 RUN echo "${USERNAME}:${USERPASSWORD}" | chpasswd && usermod -aG sudo $USERNAME
 RUN adduser $USERNAME sudo
 
-# copy qemu image
-COPY image/core-image-minimal-qemux86-64.ext4 /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
-COPY image/bzImage-qemux86-64.bin /home/$USERNAME/workspace/bzImage-qemux86-64.bin
-RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/workspace
-RUN chmod 777 /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
-RUN chmod 777 /home/$USERNAME/workspace/bzImage-qemux86-64.bin
+# copy qemu and kernel image
+RUN mkdir -p /home/$USERNAME/qemu_sim
+COPY image/core-image-minimal-qemux86-64.ext4 /home/$USERNAME/qemu_sim/core-image-minimal-qemux86-64.ext4
+COPY image/bzImage-qemux86-64.bin /home/$USERNAME/qemu_sim/bzImage-qemux86-64.bin
+RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/qemu_sim
+RUN chmod +r /home/$USERNAME/qemu_sim/core-image-minimal-qemux86-64.ext4
+RUN chmod +r /home/$USERNAME/qemu_sim/bzImage-qemux86-64.bin
+COPY scripts/entrypoint.sh /home/$USERNAME/qemu_sim/entrypoint.sh
+RUN chmod +x /home/$USERNAME/qemu_sim/entrypoint.sh
+
 USER $USERNAME
+WORKDIR /home/$USERNAME/qemu_sim
 
-FROM base AS final
-
-WORKDIR $workspace
-
-# set the entry point to /bin/bash
-ENTRYPOINT ["/bin/bash"]
+# set the entry point to script
+ENTRYPOINT ["./entrypoint.sh"]
