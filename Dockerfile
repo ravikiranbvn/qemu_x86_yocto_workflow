@@ -44,7 +44,7 @@ ENV LC_ALL en_US.UTF-8
 
 # add a user
 # Create a new user named "builduser" with home directory and bash shell
-RUN useradd --quiet --disabled-password --shell /bin/zsh --home /home/$USERNAME --gecos "User" $USERNAME
+RUN useradd -m -d /home/builduser -s /bin/zsh $USERNAME &&\
 RUN echo "${USERNAME}:${USERPASSWORD}" | chpasswd && usermod -aG sudo $USERNAME
 RUN adduser $USERNAME sudo
 
