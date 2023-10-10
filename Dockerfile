@@ -44,12 +44,13 @@ ENV LC_ALL en_US.UTF-8
 
 # add a user
 # Create a new user named "builduser" with home directory and bash shell
-RUN useradd -m -d /home/builduser -s /bin/zsh $USERNAME &&\
+RUN useradd -m -d /home/$USERNAME -s /bin/zsh $USERNAME &&\
 RUN echo "${USERNAME}:${USERPASSWORD}" | chpasswd && usermod -aG sudo $USERNAME
 RUN adduser $USERNAME sudo
 
-# copy qemu bin
+# copy qemu image
 COPY image/core-image-minimal-qemux86-64.ext4 /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
+RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/workspace
 RUN chmod +r /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
 USER $USERNAME
 
