@@ -52,8 +52,8 @@ RUN adduser $USERNAME sudo
 COPY image/core-image-minimal-qemux86-64.ext4 /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
 COPY image/bzImage-qemux86-64.bin /home/$USERNAME/workspace/bzImage-qemux86-64.bin
 RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/workspace
-RUN chmod +r /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
-RUN chmod +r /home/$USERNAME/workspace/bzImage-qemux86-64.bin
+RUN chmod 777 /home/$USERNAME/workspace/core-image-minimal-qemux86-64.ext4
+RUN chmod 777 /home/$USERNAME/workspace/bzImage-qemux86-64.bin
 USER $USERNAME
 
 FROM base AS final
