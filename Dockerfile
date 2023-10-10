@@ -33,6 +33,7 @@ RUN apt-get update &&  apt-get install --no-install-recommends -y \
   binutils \
   binutils-common \
   qemu-utils \
+  ovmf \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -58,6 +59,9 @@ COPY images/bzImage-qemux86-64.bin                    $KIMAGEPATH
 RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/qemu_sim
 RUN chmod +r $RFSIMAGEPATH
 RUN chmod +r $KIMAGEPATH
+
+RUN chown $USERNAME /usr/share/OVMF/OVMF_VARS.fd
+RUN chmod 644 /usr/share/OVMF/OVMF_VARS.fd
 
 COPY scripts/entrypoint.sh /home/$USERNAME/qemu_sim/entrypoint.sh
 RUN chmod +x /home/$USERNAME/qemu_sim/entrypoint.sh
