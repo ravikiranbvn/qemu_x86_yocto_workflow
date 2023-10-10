@@ -47,12 +47,17 @@ RUN echo "${USERNAME}:${USERPASSWORD}" | chpasswd && usermod -aG sudo $USERNAME
 RUN adduser $USERNAME sudo
 
 # copy qemu and kernel image
+ARG RFSIMAGEPATH="/home/$USERNAME/qemu_sim/core-image-minimal-qemux86-64.rootfs.ext4"
+ARG KIMAGEPATH="/home/$USERNAME/qemu_sim/bzImage-qemux86-64.bin"
+
 RUN mkdir -p /home/$USERNAME/qemu_sim
-COPY image/core-image-minimal-qemux86-64.ext4 /home/$USERNAME/qemu_sim/core-image-minimal-qemux86-64.ext4
-COPY image/bzImage-qemux86-64.bin /home/$USERNAME/qemu_sim/bzImage-qemux86-64.bin
+COPY image/core-image-minimal-qemux86-64.rootfs.ext4 $RFSIMAGEPATH
+COPY image/bzImage-qemux86-64.bin                    $KIMAGEPATH
+
 RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/qemu_sim
-RUN chmod +r /home/$USERNAME/qemu_sim/core-image-minimal-qemux86-64.ext4
-RUN chmod +r /home/$USERNAME/qemu_sim/bzImage-qemux86-64.bin
+RUN chmod +r $RFSIMAGEPATH
+RUN chmod +r $KIMAGEPATH
+
 COPY scripts/entrypoint.sh /home/$USERNAME/qemu_sim/entrypoint.sh
 RUN chmod +x /home/$USERNAME/qemu_sim/entrypoint.sh
 
