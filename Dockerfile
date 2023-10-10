@@ -32,6 +32,7 @@ RUN apt-get update &&  apt-get install --no-install-recommends -y \
   python3-dev \
   binutils \
   binutils-common \
+  qemu-utils \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
