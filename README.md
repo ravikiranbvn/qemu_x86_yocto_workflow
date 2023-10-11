@@ -3,6 +3,10 @@ All the resources in this repository are ONLY for learning purposes!
 ```
 
 # qemu_x86_yocto_workflow
+```
+- This is a simple demonstration to showcase the automation/workflow of yocto project with Github, Docker and QEMU
+- Finally, to launch QEMU x86_64 image within docker container on a host machine
+```
 
 # Environment setup
 
@@ -40,7 +44,7 @@ sudo apt-install qemu-system-x86 \
 
 ## 3. Documentation
 
-[Dockerfile]   (https://docs.docker.com/get-started/02_our_app/)
-[Github]       (https://docs.github.com/en/actions/quickstart)
-[YoctoProject] (https://docs.yoctoproject.org/4.0.12/singleindex.html) 
-[YoctoProject] (https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html)
+Tutorial on docker file:        [Dockerfile](https://docs.docker.com/get-started/02_our_app/)
+Tutorial on Github yaml file:   [Github](https://docs.github.com/en/actions/quickstart)
+YoctoProject kirkstone-4.0.12:  [YoctoProject](https://docs.yoctoproject.org/4.0.12/singleindex.html) 
+Tutorial on YoctoProject build: [YoctoProject](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html)
