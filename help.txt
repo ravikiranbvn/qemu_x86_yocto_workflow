@@ -9,7 +9,7 @@ docker build --rm --tag qemu_x86_64_yocto:v1 -f Dockerfile .
 docker run rkbvn89/qemu_x86_64_yocto:v1
 docker push rkbvn89/qemu_x86_64_yocto:v1
 docker pull rkbvn89/qemu_x86_64_yocto:v1
-docker run --rm -it rkbvn89/qemu_x86_64_yocto:v1
+docker run --rm -it rkbvn89/qemu_x86_64_yocto:onlytest
 
 2. qemu-system-x86 
 - sudo apt install qemu-system-x86
