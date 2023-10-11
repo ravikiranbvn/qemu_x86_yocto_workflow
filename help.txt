@@ -5,7 +5,7 @@ check if group exists
 add username to docker group
 sudo usermod -aG docker username
 
-docker build --rm --tag qemu_x86_64_yocto:v1 -f Dockerfile .
+docker build --rm --tag rkbvn89/qemu_x86_64_yocto:onlytest -f Dockerfile .
 docker run rkbvn89/qemu_x86_64_yocto:v1
 docker push rkbvn89/qemu_x86_64_yocto:v1
 docker pull rkbvn89/qemu_x86_64_yocto:v1

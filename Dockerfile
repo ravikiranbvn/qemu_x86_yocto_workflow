@@ -1,8 +1,12 @@
+#
+# <author> ravi.has.kiran@gmail.com
+# Copyright (c) 2023. All rights reserved!
+#
+
 FROM ubuntu:lunar
 
 # config
 ARG USERNAME="builduser"
-ARG USERPASSWORD="go"
 
 #set workdir
 WORKDIR /root
@@ -43,22 +47,19 @@ ENV LC_ALL en_US.UTF-8
 
 # create a new user named "builduser" with home directory and bash shell
 RUN useradd -m -d /home/$USERNAME -s /bin/bash $USERNAME &&\
-RUN echo "${USERNAME}:${USERPASSWORD}" | chpasswd && usermod -aG sudo $USERNAME
+RUN echo "${USERNAME}:${USERNAME}" | chpasswd && usermod -aG sudo $USERNAME
 RUN adduser $USERNAME sudo
 
-# copy qemu and kernel image
+# copy qemu image
 ARG WICIMAGEPATH="/home/$USERNAME/qemu_sim/core-image-minimal-qemux86-64.wic"
 
 RUN mkdir -p /home/$USERNAME/qemu_sim
 COPY images/core-image-minimal-qemux86-64.wic   $WICIMAGEPATH
-COPY images/serial_console.log                  /home/$USERNAME/qemu_sim/serial_console.log
-
 RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/qemu_sim
 RUN chmod +r $WICIMAGEPATH
 
 COPY scripts/entrypoint.sh /home/$USERNAME/qemu_sim/entrypoint.sh
 RUN chmod +x               /home/$USERNAME/qemu_sim/entrypoint.sh
-RUN chmod u+w              /home/$USERNAME/qemu_sim/serial_console.log
 
 USER $USERNAME
 WORKDIR /home/$USERNAME/qemu_sim
