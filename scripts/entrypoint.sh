@@ -1,8 +1,3 @@
-//
-// <author> ravi.has.kiran@gmail.com
-// Copyright (c) 2023. All rights reserved!
-//
-
 #!/bin/bash
 
 # start QEMU 
