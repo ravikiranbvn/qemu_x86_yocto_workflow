@@ -44,7 +44,7 @@ sudo apt-install qemu-system-x86 \
 
 ## 3. Documentation
 
-Tutorial on docker file:        [Dockerfile](https://docs.docker.com/get-started/02_our_app/)
-Tutorial on Github yaml file:   [Github](https://docs.github.com/en/actions/quickstart)
-YoctoProject kirkstone-4.0.12:  [YoctoProject](https://docs.yoctoproject.org/4.0.12/singleindex.html) 
-Tutorial on YoctoProject build: [YoctoProject](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html)
+### Tutorial on docker file:        [Dockerfile](https://docs.docker.com/get-started/02_our_app/)
+### Tutorial on Github yaml file:   [Github](https://docs.github.com/en/actions/quickstart)        
+### YoctoProject kirkstone-4.0.12:  [YoctoProject](https://docs.yoctoproject.org/4.0.12/singleindex.html) 
+### Tutorial on YoctoProject build: [YoctoProject](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html)
