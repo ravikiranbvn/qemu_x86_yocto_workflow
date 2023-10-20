@@ -4,8 +4,8 @@ All the resources in this repository are ONLY for learning purposes!
 
 # qemu_x86_yocto_workflow
 ```
-- This is a simple demonstration to showcase the automation/workflow of yocto project with Github, Docker and QEMU
-- Finally, to launch QEMU x86_64 image within docker container on a host machine
+- This is a simple demonstration to showcase the CI/CD workflow of yocto project with Github, Docker and QEMU
+- Finally, to launch QEMU x86_64 image login shell within a docker container after docker pull and run on a host machine
 ```
 
 # Environment setup
